@@ -22,8 +22,8 @@ jobs:
 
           # ---- BACKEND GOLANG ----
           cd backend
-          # Build ulang file Go
-          go build -o server main.go
+          # Build ulang semua file Go di folder backend
+          go build -o server .
           cd ..
 
           # ---- FRONTEND REACT (Vite) ----
