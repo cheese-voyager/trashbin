@@ -19,8 +19,15 @@ jobs:
           cd ~/trashbin
           git fetch origin main
           git reset --hard origin/main
-          sudo docker compose down
-          sudo docker system prune -af
-          sudo docker builder prune -af
-          sudo docker compose up -d --build
+
+          # ---- BACKEND GOLANG ----
+          cd backend
+          # Build ulang file Go
+          go build -o server main.go
+          cd ..
+
+          # ---- FRONTEND REACT (Vite) ----
+          cd frontend
+          npm install
+          npm run build
           EOF

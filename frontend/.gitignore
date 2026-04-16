@@ -1,3 +1,9 @@
+*.pem
+*.csv
+*.pdf
+*.docx
+*.txt
+
 # Logs
 logs
 *.log
