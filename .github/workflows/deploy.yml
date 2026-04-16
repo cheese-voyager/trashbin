@@ -1,4 +1,4 @@
-name: Deploy to ECS
+name: Deploy to EC2 dengan Docker
 
 on:
   push:
@@ -10,39 +10,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Setup SSH via Pem Key
+        uses: webfactory/ssh-agent@v0.5.3
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: Build & Push Backend to ECR
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: trashbin-backend
-          IMAGE_TAG: latest
+      - name: Jalankan SSH dan Build Docker di dalam EC2
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./backend
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-
-      - name: Build & Push Frontend to ECR
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: trashbin-frontend
-          IMAGE_TAG: latest
-        run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./frontend
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-
-      - name: Force new ECS Deployment
-        run: |
-          aws ecs update-service --cluster trashbin-cluster --service backend-service --force-new-deployment
-          aws ecs update-service --cluster trashbin-cluster --service frontend-service --force-new-deployment
+          # Melakukan koneksi ke EC2 secara automatis lalu mengeksekusi script
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+          
+          # 1. Pindah ke folder projek yang sudah di-clone
+          cd ~/trashbin
+          
+          # 2. Tarik update terbaru dari Github
+          git pull origin main
+          
+          # 3. Matikan kontainer lama jika ada, lalu rangkai (build) ulang dan hidupkan yang baru
+          sudo docker compose down
+          sudo docker compose up -d --build
+          
+          EOF
