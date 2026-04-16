@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { UserCircle, MapPin, Activity } from 'lucide-react';
 
-const API_URL = 'http://localhost:8080/api';
+const API_URL = `http://${window.location.hostname}:8080/api`;
 
 function WorkerMonitor() {
   const [workers, setWorkers] = useState([]);

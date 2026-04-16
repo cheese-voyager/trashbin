@@ -12,7 +12,7 @@ function Home() {
           Platform terpadu untuk pelaporan masalah sampah, pemantauan jadwal pengangkutan, dan manajemen petugas kebersihan untuk kota yang lebih bersih.
         </p>
         <Link to="/report" className="btn" style={{ padding: '15px 30px', fontSize: '1.2rem', borderRadius: '30px' }}>
-          Lapor Sampah Liar Sekarang <ArrowRight size={20} />
+          Cepuin yang buang sampah sembarangan sekarang <ArrowRight size={20} />
         </Link>
       </div>
 

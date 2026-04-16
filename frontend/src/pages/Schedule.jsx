@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Calendar, Truck, Clock } from 'lucide-react';
 
-const API_URL = 'http://localhost:8080/api';
+const API_URL = `http://${window.location.hostname}:8080/api`;
 
 function Schedule() {
   const [schedules, setSchedules] = useState([]);
