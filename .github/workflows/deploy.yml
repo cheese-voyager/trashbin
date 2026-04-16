@@ -21,16 +21,21 @@ jobs:
       - name: Jalankan SSH dan Build Docker di dalam EC2
         run: |
           # Melakukan koneksi ke EC2 secara automatis lalu mengeksekusi script
-          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+          # Flag -T digunakan agar tidak muncul peringatan pseudo-terminal
+          ssh -T -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+          
+          echo "Berhasil masuk ke dalam server EC2!"
           
           # 1. Pindah ke folder projek yang sudah di-clone
           cd ~/trashbin
           
-          # 2. Tarik update terbaru dari Github
-          git pull origin main
+          # 2. Tarik update terbaru dari Github (Di-reset paksa supaya tidak nyangkut saat pull)
+          git fetch origin main
+          git reset --hard origin/main
           
           # 3. Matikan kontainer lama jika ada, lalu rangkai (build) ulang dan hidupkan yang baru
           sudo docker compose down
           sudo docker compose up -d --build
           
+          echo "Deploy berhasil dijalankan!"
           EOF
