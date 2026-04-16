@@ -253,3 +253,26 @@ body {
   background: var(--secondary);
   animation: pulse 2s infinite;
 }
+
+/* Admin Styles */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--text);
+}
+
+.admin-table th, .admin-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-table th {
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.admin-table tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}

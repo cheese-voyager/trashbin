@@ -32,16 +32,59 @@ func main() {
 	// Reports
 	api.GET("/reports", getReports)
 	api.POST("/reports", createReport)
+	api.PUT("/reports/:id", updateReport)
+	api.DELETE("/reports/:id", deleteReport)
 	
 	// Schedules
 	api.GET("/schedules", getSchedules)
-	api.POST("/schedules", createSchedule) // For testing
+	api.POST("/schedules", createSchedule)
+	api.DELETE("/schedules/:id", deleteSchedule)
 
 	// Workers
 	api.GET("/workers", getWorkers)
-	api.POST("/workers", createWorker) // For testing
+	api.POST("/workers", createWorker)
+	api.DELETE("/workers/:id", deleteWorker)
 
 	r.Run(":8080")
+}
+
+func deleteReport(c *gin.Context) {
+	id := c.Param("id")
+	if DB != nil {
+		DB.Delete(&Report{}, id)
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "deleted"})
+}
+
+func updateReport(c *gin.Context) {
+	id := c.Param("id")
+	var input struct {
+		Status string `json:"status"`
+	}
+	if err := c.BindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	if DB != nil {
+		DB.Model(&Report{}).Where("id = ?", id).Update("status", input.Status)
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "updated"})
+}
+
+func deleteSchedule(c *gin.Context) {
+	id := c.Param("id")
+	if DB != nil {
+		DB.Delete(&Schedule{}, id)
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "deleted"})
+}
+
+func deleteWorker(c *gin.Context) {
+	id := c.Param("id")
+	if DB != nil {
+		DB.Delete(&Worker{}, id)
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "deleted"})
 }
 
 func getReports(c *gin.Context) {

@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Report from './pages/Report';
 import Schedule from './pages/Schedule';
 import WorkerMonitor from './pages/WorkerMonitor';
+import Admin from './pages/Admin';
 import './index.css';
 
 function Navbar() {
@@ -20,6 +21,7 @@ function Navbar() {
         <Link to="/report" className={`nav-link ${location.pathname === '/report' ? 'active' : ''}`}>Jasa cepuin</Link>
         <Link to="/schedule" className={`nav-link ${location.pathname === '/schedule' ? 'active' : ''}`}>Jadwal</Link>
         <Link to="/workers" className={`nav-link ${location.pathname === '/workers' ? 'active' : ''}`}>Monitoring</Link>
+        <Link to="/admin" className={`nav-link ${location.pathname === '/admin' ? 'active' : ''}`}>Kelola Data</Link>
       </div>
     </nav>
   );
@@ -35,6 +37,7 @@ function App() {
           <Route path="/report" element={<Report />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/workers" element={<WorkerMonitor />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </div>
     </Router>
