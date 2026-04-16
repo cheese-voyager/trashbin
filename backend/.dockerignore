@@ -1,0 +1,21 @@
+# Git
+.git
+.gitignore
+
+# Compiled binary (jika di-build lokal)
+main
+main.exe
+
+# Dependensi lokal (Docker akan melakukan "go mod download")
+vendor/
+
+# Environment / Data Rahasia
+.env
+.env.*
+*.pem
+*.csv
+*.key
+
+# Editor/IDE
+.vscode/
+.idea/
