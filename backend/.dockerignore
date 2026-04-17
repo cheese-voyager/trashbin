@@ -1,6 +1,7 @@
 # Git
 .git
 .gitignore
+backend/Dockerfile
 
 # Compiled binary (jika di-build lokal)
 main
@@ -10,7 +11,7 @@ main.exe
 vendor/
 
 # Environment / Data Rahasia
-.env
+*.env
 .env.*
 *.pem
 *.csv
