@@ -1,10 +1,10 @@
-# Trashbin Management System
+# Trashbin App
 
 Sistem manajemen pelaporan dan pembuangan sampah berbasih web. Proyek ini terdiri dari backend menggunakan Go (Golang) dan frontend menggunakan React.js, dengan integrasi layanan AWS (EC2, RDS, dan S3) untuk deployment dan penyimpanan awan.
 
 ---
 
-## 📂 Struktur Isi File
+## Struktur Isi File
 
 Berikut adalah penjelasan struktur direktori dan file pada repositori ini:
 
@@ -32,7 +32,7 @@ trashbin/
 
 ---
 
-## 🚀 Guide Deploy ke Website (via AWS EC2)
+## Guide Deploy ke Website (via AWS EC2)
 
 Aplikasi ini telah dikonfigurasi untuk berjalan di atas AWS EC2 menggunakan dua metode: (1) manual via Docker Compose dan (2) via CI/CD GitHub Actions. 
 
@@ -77,10 +77,9 @@ Berdasarkan file yang berada dalam `.github/workflows/`, setiap *push* ke branch
 
 ---
 
-## 🏛 Keterangan Diagram Arsitektur
+## Keterangan Diagram Arsitektur
 
-![Diagram Arsitektur AWS](./architecture.png) 
-*(Catatan: Anda bisa mengganti `./architecture.png` dengan path atau link gambar diagram aslinya dan mengunggah gambar diagram tersebut ke repository untuk diletakkan di dokumentasi agar terlihat seperti foto yang Anda sebutkan).*
+![Diagram Arsitektur AWS](./architecture.png)
 
 Seperti pada foto tersebut, aplikasi ini menganut pemisahan *Client-Server* dan berjalan sepenuhnya di atas ekosistem *Cloud* (AWS). 
 Penjelasan Arsitekturnya:
